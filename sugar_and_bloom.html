@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar & Bloom - Handcrafted Cakes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4a5a5;
+            --primary-dark: #b88686;
+            --secondary: #f5e6e8;
+            --accent: #8b5a5a;
+            --text: #4a4a4a;
+            --white: #ffffff;
+            --gold: #c9a961;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .progress-dot.completed {
+            background: var(--gold);
+        }
+
+        .quiz-question {
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-question.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-question h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1rem 1.5rem;
+            background: var(--secondary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .quiz-result {
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-cake {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-cake h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-cake p {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-price {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .quiz-restart {
+            margin-top: 2rem;
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .quiz-restart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Menu Section */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .menu-details {
+            padding: 1.5rem;
+        }
+
+        .menu-details h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-details p {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .menu-price {
+            font-size: 1.25rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Reviews Section */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .review-stars {
+            color: var(--gold);
+            margin-left: auto;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--accent);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .modal-close {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .nav-links { display: none; }
+            .contact-container { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .quiz-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">Sugar <span>&</span> Bloom</div>
+        <ul class="nav-links">
+            <li><a href="#quiz">Find Your Cake</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="logo">Sugar <span>&</span> Bloom</h1>
+            <p class="tagline">Handcrafted cakes for life's sweetest moments</p>
+            <div class="hero-buttons">
+                <a href="#quiz" class="btn btn-primary">Find Your Perfect Cake</a>
+                <a href="#contact" class="btn btn-secondary">Place an Order</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz">
+        <h2 class="section-title">Find Your Perfect Cake</h2>
+        <p class="section-subtitle">Answer a few questions and we'll recommend the ideal cake for you</p>
+
+        <div class="quiz-container">
+            <div class="quiz-progress">
+                <div class="progress-dot active" data-step="1"></div>
+                <div class="progress-dot" data-step="2"></div>
+                <div class="progress-dot" data-step="3"></div>
+            </div>
+
+            <form id="quiz-form">
+                <!-- Question 1 -->
+                <div class="quiz-question active" data-question="1">
+                    <h3>What's the occasion?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="birthday">🎂 Birthday Celebration</div>
+                        <div class="quiz-option" data-value="wedding">💒 Wedding</div>
+                        <div class="quiz-option" data-value="anniversary">💕 Anniversary</div>
+                        <div class="quiz-option" data-value="justbecause">✨ Just Because</div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-question" data-question="2">
+                    <h3>What's your favorite flavor?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="chocolate">🍫 Rich Chocolate</div>
+                        <div class="quiz-option" data-value="vanilla">🌿 Classic Vanilla</div>
+                        <div class="quiz-option" data-value="redvelvet">❤️ Red Velvet</div>
+                        <div class="quiz-option" data-value="lemon">🍋 Zesty Lemon</div>
+                        <div class="quiz-option" data-value="surprise">🎁 Surprise Me!</div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-question" data-question="3">
+                    <h3>What's your budget?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="under50">Under $50</div>
+                        <div class="quiz-option" data-value="50-100">$50 - $100</div>
+                        <div class="quiz-option" data-value="100-200">$100 - $200</div>
+                        <div class="quiz-option" data-value="200plus">$200+</div>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div class="quiz-result" id="quiz-result">
+                    <div class="result-cake">
+                        <h3 id="result-name">Cake Name</h3>
+                        <p id="result-description">Cake description</p>
+                        <div class="result-price" id="result-price">$0</div>
+                    </div>
+                    <button type="button" class="btn quiz-restart" onclick="restartQuiz()">Start Over</button>
+                    <a href="#contact" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Order This Cake</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2 class="section-title">Our Cake Menu</h2>
+        <p class="section-subtitle">Each cake is lovingly handcrafted with the finest ingredients</p>
+
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-image">🎂</div>
+                <div class="menu-details">
+                    <h3>Classic Celebration</h3>
+                    <p>Three layers of moist vanilla sponge with raspberry buttercream and fresh berries</p>
+                    <div class="menu-price">From $65</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-image">🍫</div>
+                <div class="menu-details">
+                    <h3>Chocolate Dream</h3>
+                    <p>Decadent dark chocolate layers with ganache filling and chocolate shavings</p>
+                    <div class="menu-price">From $75</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-image">❤️</div>
+                <div class="menu-details">
+                    <h3>Red Velvet Romance</h3>
+                    <p>Traditional red velvet with cream cheese frosting and elegant piping</p>
+                    <div class="menu-price">From $70</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-image">🍋</div>
+                <div class="menu-details">
+                    <h3>Lemon Bliss</h3>
+                    <p>Bright lemon cake with lemon curd filling and vanilla buttercream</p>
+                    <div class="menu-price">From $65</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-image">🌸</div>
+                <div class="menu-details">
+                    <h3>Floral Elegance</h3>
+                    <p>Vanilla bean cake with lavender honey buttercream and edible flowers</p>
+                    <div class="menu-price">From $85</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-image">👑</div>
+                <div class="menu-details">
+                    <h3>Signature Sugar & Bloom</h3>
+                    <p>Our famous marble cake with strawberry filling and champagne buttercream</p>
+                    <div class="menu-price">From $95</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Real stories from real celebrations</p>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <p class="review-text">The cake for my daughter's wedding was absolutely stunning! Not only was it gorgeous, but it tasted even better than it looked. Every single guest commented on how delicious it was.</p>
+                <div class="review-author">
+                    <div class="review-avatar">MR</div>
+                    <div>
+                        <strong>Maria Rodriguez</strong>
+                        <div>Wedding Client</div>
+                    </div>
+                    <div class="review-stars">★★★★★</div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <p class="review-text">I ordered the Chocolate Dream for my husband's 50th birthday and it was the highlight of the party! The quiz helped me pick exactly what he would love. Will definitely order again!</p>
+                <div class="review-author">
+                    <div class="review-avatar">JT</div>
+                    <div>
+                        <strong>Jennifer Thompson</strong>
+                        <div>Birthday Client</div>
+                    </div>
+                    <div class="review-stars">★★★★★</div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <p class="review-text">Sugar & Bloom made our anniversary so special. The Floral Elegance cake was like a work of art, and the taste... wow! The lemon and lavender combination was perfection.</p>
+                <div class="review-author">
+                    <div class="review-avatar">DW</div>
+                    <div>
+                        <strong>David & Sarah Williams</strong>
+                        <div>Anniversary Client</div>
+                    </div>
+                    <div class="review-stars">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Let's Create Your Perfect Cake</h2>
+        <p class="section-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>We'd love to hear from you! Whether you're planning a grand celebration or just treating yourself, we're here to make your cake dreams come true.</p>
+
+                <ul class="contact-details">
+                    <li>
+                        <span>📍</span>
+                        <span>123 Baker Street, Sweet Town, ST 12345</span>
+                    </li>
+                    <li>
+                        <span>📞</span>
+                        <span>(555) 123-4567</span>
+                    </li>
+                    <li>
+                        <span>✉️</span>
+                        <span>hello@sugarandbloom.com</span>
+                    </li>
+                    <li>
+                        <span>🕐</span>
+                        <span>Tue-Sun: 9am - 6pm</span>
+                    </li>
+                </ul>
+            </div>
+
+            <form class="contact-form" id="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="jane@example.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date Needed *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Tell Us About Your Cake *</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Describe your dream cake, occasion, serving size, any allergies or special requests..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Sugar & Bloom. All rights reserved. | Handcrafted with love</p>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="modal-icon">🎉</div>
+            <h3>Thank You!</h3>
+            <p id="modal-message">Your message has been sent successfully. We'll get back to you within 24 hours!</p>
+            <button class="modal-close" onclick="closeModal()">Wonderful!</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const cakeRecommendations = {
+            'birthday-chocolate-under50': {
+                name: 'Mini Chocolate Celebration',
+                description: 'Perfect for intimate birthdays! Two layers of rich chocolate with ganache.',
+                price: '$45'
+            },
+            'birthday-chocolate-50-100': {
+                name: 'Chocolate Dream',
+                description: 'Three layers of decadent dark chocolate with ganache and fresh berries.',
+                price: '$75'
+            },
+            'birthday-chocolate-100-200': {
+                name: 'Grand Chocolate Spectacular',
+                description: 'Four-tier masterpiece with assorted chocolate decorations and gold accents.',
+                price: '$150'
+            },
+            'birthday-chocolate-200plus': {
+                name: 'Ultimate Chocolate Experience',
+                description: 'Custom multi-tier design with handcrafted chocolate sculptures.',
+                price: 'Starting at $225'
+            },
+            'birthday-vanilla-under50': {
+                name: 'Mini Vanilla Delight',
+                description: 'Sweet vanilla layers with rainbow sprinkles and buttercream.',
+                price: '$40'
+            },
+            'birthday-vanilla-50-100': {
+                name: 'Classic Celebration',
+                description: 'Three layers of vanilla sponge with raspberry buttercream.',
+                price: '$65'
+            },
+            'birthday-vanilla-100-200': {
+                name: 'Birthday Extravaganza',
+                description: 'Elaborate design with custom decorations and fondant details.',
+                price: '$140'
+            },
+            'birthday-vanilla-200plus': {
+                name: 'Grand Celebration Tower',
+                description: 'Stunning multi-tier cake with custom themed decorations.',
+                price: 'Starting at $200'
+            },
+            'birthday-redvelvet-under50': {
+                name: 'Mini Red Velvet',
+                description: 'Individual celebration cake with cream cheese frosting.',
+                price: '$48'
+            },
+            'birthday-redvelvet-50-100': {
+                name: 'Red Velvet Romance',
+                description: 'Traditional red velvet with cream cheese frosting.',
+                price: '$70'
+            },
+            'birthday-redvelvet-100-200': {
+                name: 'Red Velvet Grand',
+                description: 'Elegant design with white chocolate decorations.',
+                price: '$145'
+            },
+            'birthday-redvelvet-200plus': {
+                name: 'Red Velvet Masterpiece',
+                description: 'Show-stopping tiered design with handcrafted details.',
+                price: 'Starting at $210'
+            },
+            'birthday-lemon-under50': {
+                name: 'Mini Lemon Bliss',
+                description: 'Bright and zesty perfect for a small gathering.',
+                price: '$45'
+            },
+            'birthday-lemon-50-100': {
+                name: 'Lemon Bliss',
+                description: 'Lemon cake with lemon curd and vanilla buttercream.',
+                price: '$65'
+            },
+            'birthday-lemon-100-200': {
+                name: 'Citrus Celebration',
+                description: 'Elegant lemon cake with fresh flowers and citrus garnishes.',
+                price: '$135'
+            },
+            'birthday-lemon-200plus': {
+                name: 'Garden Party Lemon',
+                description: 'Elaborate floral design with sugar flowers.',
+                price: 'Starting at $195'
+            },
+            'birthday-surprise-under50': {
+                name: 'Baker\'s Choice Mini',
+                description: 'Our surprise flavor of the week in a mini size.',
+                price: '$42'
+            },
+            'birthday-surprise-50-100': {
+                name: 'Signature Sugar & Bloom',
+                description: 'Our famous marble cake with strawberry filling.',
+                price: '$95'
+            },
+            'birthday-surprise-100-200': {
+                name: 'Chef\'s Special Creation',
+                description: 'A custom combination of our best flavors.',
+                price: '$160'
+            },
+            'birthday-surprise-200plus': {
+                name: 'Ultimate Surprise Experience',
+                description: 'Multi-flavor, multi-tier masterpiece designed just for you.',
+                price: 'Starting at $250'
+            },
+            'wedding-chocolate-under50': {
+                name: 'Wedding Tasting Set',
+                description: 'Mini chocolate cake for tasting before your big day.',
+                price: '$45'
+            },
+            'wedding-chocolate-50-100': {
+                name: 'Intimate Wedding Chocolate',
+                description: 'Perfect for elopements or small ceremonies.',
+                price: '$85'
+            },
+            'wedding-chocolate-100-200': {
+                name: 'Elegant Chocolate Wedding',
+                description: 'Two-tier chocolate cake with white chocolate details.',
+                price: '$175'
+            },
+            'wedding-chocolate-200plus': {
+                name: 'Grand Chocolate Wedding',
+                description: 'Multi-tier masterpiece with cascading decorations.',
+                price: 'Starting at $275'
+            },
+            'wedding-vanilla-under50': {
+                name: 'Wedding Tasting Vanilla',
+                description: 'Sample our wedding vanilla before your big day.',
+                price: '$40'
+            },
+            'wedding-vanilla-50-100': {
+                name: 'Intimate Wedding Vanilla',
+                description: 'Small ceremony cake with delicate piping.',
+                price: '$80'
+            },
+            'wedding-vanilla-100-200': {
+                name: 'Classic Wedding Elegance',
+                description: 'Two-tier vanilla with hand-piped details.',
+                price: '$165'
+            },
+            'wedding-vanilla-200plus': {
+                name: 'Grand Wedding Celebration',
+                description: 'Stunning multi-tier with sugar flowers.',
+                price: 'Starting at $250'
+            },
+            'wedding-redvelvet-under50': {
+                name: 'Red Velvet Tasting',
+                description: 'Sample our popular wedding red velvet.',
+                price: '$48'
+            },
+            'wedding-redvelvet-50-100': {
+                name: 'Intimate Red Velvet Wedding',
+                description: 'Perfect for small wedding ceremonies.',
+                price: '$88'
+            },
+            'wedding-redvelvet-100-200': {
+                name: 'Red Velvet Wedding Elegance',
+                description: 'Two-tier with cream cheese frosting and pearls.',
+                price: '$180'
+            },
+            'wedding-redvelvet-200plus': {
+                name: 'Grand Red Velvet Affair',
+                description: 'Multi-tier stunner with crystal accents.',
+                price: 'Starting at $285'
+            },
+            'wedding-lemon-under50': {
+                name: 'Lemon Wedding Tasting',
+                description: 'Sample our refreshing wedding lemon.',
+                price: '$45'
+            },
+            'wedding-lemon-50-100': {
+                name: 'Intimate Lemon Wedding',
+                description: 'Small ceremony cake with fresh lemon zest.',
+                price: '$82'
+            },
+            'wedding-lemon-100-200': {
+                name: 'Garden Wedding Lemon',
+                description: 'Two-tier with edible flowers.',
+                price: '$170'
+            },
+            'wedding-lemon-200plus': {
+                name: 'Grand Garden Wedding',
+                description: 'Multi-tier with handcrafted sugar flowers.',
+                price: 'Starting at $265'
+            },
+            'wedding-surprise-under50': {
+                name: 'Wedding Flavor Tasting',
+                description: 'Try our surprise wedding flavor.',
+                price: '$50'
+            },
+            'wedding-surprise-50-100': {
+                name: 'Signature Wedding Mini',
+                description: 'Our signature blend for intimate weddings.',
+                price: '$90'
+            },
+            'wedding-surprise-100-200': {
+                name: 'Custom Wedding Creation',
+                description: 'Personalized flavor combination.',
+                price: '$185'
+            },
+            'wedding-surprise-200plus': {
+                name: 'Bespoke Wedding Masterpiece',
+                description: 'Fully custom design and flavors.',
+                price: 'Starting at $295'
+            },
+            'anniversary-chocolate-under50': {
+                name: 'Mini Chocolate Romance',
+                description: 'Sweet chocolate treat for two.',
+                price: '$42'
+            },
+            'anniversary-chocolate-50-100': {
+                name: 'Chocolate Anniversary',
+                description: 'Decadent chocolate for your special day.',
+                price: '$72'
+            },
+            'anniversary-chocolate-100-200': {
+                name: 'Grand Chocolate Anniversary',
+                description: 'Elegant two-tier with gold details.',
+                price: '$155'
+            },
+            'anniversary-chocolate-200plus': {
+                name: 'Ultimate Anniversary Chocolate',
+                description: 'Luxurious multi-tier celebration.',
+                price: 'Starting at $220'
+            },
+            'anniversary-vanilla-under50': {
+                name: 'Mini Vanilla Romance',
+                description: 'Sweet vanilla for an intimate celebration.',
+                price: '$40'
+            },
+            'anniversary-vanilla-50-100': {
+                name: 'Vanilla Anniversary',
+                description: 'Classic vanilla with berry filling.',
+                price: '$68'
+            },
+            'anniversary-vanilla-100-200': {
+                name: 'Elegant Vanilla Anniversary',
+                description: 'Two-tier with silver accents.',
+                price: '$150'
+            },
+            'anniversary-vanilla-200plus': {
+                name: 'Grand Vanilla Celebration',
+                description: 'Luxurious multi-tier design.',
+                price: 'Starting at $210'
+            },
+            'anniversary-redvelvet-under50': {
+                name: 'Mini Red Velvet Romance',
+                description: 'Perfect red velvet for two.',
+                price: '$45'
+            },
+            'anniversary-redvelvet-50-100': {
+                name: 'Red Velvet Anniversary',
+                description: 'Classic red velvet elegance.',
+                price: '$70'
+            },
+            'anniversary-redvelvet-100-200': {
+                name: 'Grand Red Velvet Anniversary',
+                description: 'Stunning two-tier with heart decorations.',
+                price: '$160'
+            },
+            'anniversary-redvelvet-200plus': {
+                name: 'Ultimate Red Velvet Romance',
+                description: 'Spectacular multi-tier design.',
+                price: 'Starting at $230'
+            },
+            'anniversary-lemon-under50': {
+                name: 'Mini Lemon Romance',
+                description: 'Bright lemon for a sweet celebration.',
+                price: '$42'
+            },
+            'anniversary-lemon-50-100': {
+                name: 'Lemon Anniversary',
+                description: 'Refreshing lemon with lavender hints.',
+                price: '$68'
+            },
+            'anniversary-lemon-100-200': {
+                name: 'Elegant Lemon Anniversary',
+                description: 'Two-tier with floral decorations.',
+                price: '$148'
+            },
+            'anniversary-lemon-200plus': {
+                name: 'Grand Lemon Celebration',
+                description: 'Multi-tier garden-inspired design.',
+                price: 'Starting at $205'
+            },
+            'anniversary-surprise-under50': {
+                name: 'Anniversary Surprise Mini',
+                description: 'Baker\'s choice for your special day.',
+                price: '$44'
+            },
+            'anniversary-surprise-50-100': {
+                name: 'Signature Anniversary',
+                description: 'Our signature marble cake.',
+                price: '$92'
+            },
+            'anniversary-surprise-100-200': {
+                name: 'Custom Anniversary',
+                description: 'Personalized flavor combination.',
+                price: '$165'
+            },
+            'anniversary-surprise-200plus': {
+                name: 'Ultimate Anniversary',
+                description: 'Bespoke multi-tier creation.',
+                price: 'Starting at $240'
+            },
+            'justbecause-chocolate-under50': {
+                name: 'Chocolate Treat',
+                description: 'Because you deserve chocolate!',
+                price: '$38'
+            },
+            'justbecause-chocolate-50-100': {
+                name: 'Chocolate Indulgence',
+                description: 'Rich chocolate layers of happiness.',
+                price: '$68'
+            },
+            'justbecause-chocolate-100-200': {
+                name: 'Grand Chocolate Treat',
+                description: 'Elaborate chocolate creation.',
+                price: '$140'
+            },
+            'justbecause-chocolate-200plus': {
+                name: 'Ultimate Chocolate Indulgence',
+                description: 'No occasion needed for this masterpiece!',
+                price: 'Starting at $195'
+            },
+            'justbecause-vanilla-under50': {
+                name: 'Vanilla Treat',
+                description: 'Classic vanilla joy.',
+                price: '$35'
+            },
+            'justbecause-vanilla-50-100': {
+                name: 'Vanilla Indulgence',
+                description: 'Beautiful vanilla layers.',
+                price: '$62'
+            },
+            'justbecause-vanilla-100-200': {
+                name: 'Grand Vanilla Treat',
+                description: 'Elegant vanilla creation.',
+                price: '$135'
+            },
+            'justbecause-vanilla-200plus': {
+                name: 'Ultimate Vanilla Joy',
+                description: 'Spectacular vanilla masterpiece.',
+                price: 'Starting at $185'
+            },
+            'justbecause-redvelvet-under50': {
+                name: 'Red Velvet Treat',
+                description: 'A little red velvet happiness.',
+                price: '$40'
+            },
+            'justbecause-redvelvet-50-100': {
+                name: 'Red Velvet Indulgence',
+                description: 'Classic red velvet joy.',
+                price: '$65'
+            },
+            'justbecause-redvelvet-100-200': {
+                name: 'Grand Red Velvet Treat',
+                description: 'Stunning red velvet creation.',
+                price: '$145'
+            },
+            'justbecause-redvelvet-200plus': {
+                name: 'Ultimate Red Velvet',
+                description: 'Show-stopping red velvet art.',
+                price: 'Starting at $200'
+            },
+            'justbecause-lemon-under50': {
+                name: 'Lemon Treat',
+                description: 'Bright lemon happiness.',
+                price: '$38'
+            },
+            'justbecause-lemon-50-100': {
+                name: 'Lemon Indulgence',
+                description: 'Zesty lemon layers of joy.',
+                price: '$62'
+            },
+            'justbecause-lemon-100-200': {
+                name: 'Grand Lemon Treat',
+                description: 'Elegant lemon creation.',
+                price: '$138'
+            },
+            'justbecause-lemon-200plus': {
+                name: 'Ultimate Lemon Joy',
+                description: 'Spectacular lemon masterpiece.',
+                price: 'Starting at $190'
+            },
+            'justbecause-surprise-under50': {
+                name: 'Baker\'s Surprise',
+                description: 'A delightful surprise treat.',
+                price: '$36'
+            },
+            'justbecause-surprise-50-100': {
+                name: 'Signature Treat',
+                description: 'Our famous signature cake.',
+                price: '$88'
+            },
+            'justbecause-surprise-100-200': {
+                name: 'Chef\'s Special Treat',
+                description: 'Creative flavor combination.',
+                price: '$155'
+            },
+            'justbecause-surprise-200plus': {
+                name: 'Ultimate Surprise',
+                description: 'Unexpected deliciousness!',
+                price: 'Starting at $215'
+            }
+        };
+
+        // Quiz State
+        let quizAnswers = {};
+        let currentQuestion = 1;
+        const totalQuestions = 3;
+
+        // Quiz Navigation
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.quiz-question').dataset.question;
+                const value = this.dataset.value;
+
+                quizAnswers[question] = value;
+
+                // Update progress
+                document.querySelectorAll(`.progress-dot[data-step="${question}"]`).forEach(dot => {
+                    dot.classList.add('completed');
+                    dot.classList.remove('active');
+                });
+
+                if (question < totalQuestions) {
+                    // Next question
+                    document.querySelector(`.quiz-question[data-question="${question}"]`).classList.remove('active');
+                    currentQuestion = parseInt(question) + 1;
+                    document.querySelector(`.quiz-question[data-question="${currentQuestion}"]`).classList.add('active');
+                    document.querySelectorAll(`.progress-dot[data-step="${currentQuestion}"]`).forEach(dot => {
+                        dot.classList.add('active');
+                    });
+                } else {
+                    // Show result
+                    showResult();
+                }
+            });
+        });
+
+        function showResult() {
+            const key = `${quizAnswers[1]}-${quizAnswers[2]}-${quizAnswers[3]}`;
+            const result = cakeRecommendations[key] || cakeRecommendations['birthday-surprise-50-100'];
+
+            document.getElementById('result-name').textContent = result.name;
+            document.getElementById('result-description').textContent = result.description;
+            document.getElementById('result-price').textContent = result.price;
+
+            document.querySelector(`.quiz-question[data-question="3"]`).classList.remove('active');
+            document.querySelectorAll('.progress-dot').forEach(dot => dot.classList.add('completed'));
+            document.getElementById('quiz-result').classList.add('active');
+        }
+
+        function restartQuiz() {
+            quizAnswers = {};
+            currentQuestion = 1;
+
+            document.querySelectorAll('.quiz-question').forEach(q => q.classList.remove('active'));
+            document.querySelectorAll('.progress-dot').forEach(dot => {
+                dot.classList.remove('active', 'completed');
+            });
+
+            document.querySelector('.quiz-question[data-question="1"]').classList.add('active');
+            document.querySelectorAll('.progress-dot[data-step="1"]').forEach(dot => {
+                dot.classList.add('active');
+            });
+
+            document.getElementById('quiz-result').classList.remove('active');
+        }
+
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            console.log('Contact Form Submission:', data);
+
+            // Show success modal
+            document.getElementById('modal-message').textContent =
+                `Thank you, ${data.name}! We've received your inquiry for ${data.date}. We'll contact you at ${data.email} within 24 hours!`;
+            document.getElementById('success-modal').classList.add('active');
+
+            this.reset();
+        });
+
+        // Modal
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('success-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
+</body>
+</html>
