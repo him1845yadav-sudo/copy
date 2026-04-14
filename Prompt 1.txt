@@ -1,5 +1,5 @@
 hello  bhaii
-
+this is edited file
 Prompt 1: Build a Business Landing Page (Without Any Skill)
 
 Copy and paste the following into Claude Code:
